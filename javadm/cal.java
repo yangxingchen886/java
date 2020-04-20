@@ -118,7 +118,7 @@ class Cal {
                 printf("%d * %d = %d\n", calNumOne, calNumTwo, calNumOne * calNumTwo);
                 break;
             case DIV:
-            if(calNumTwo!=0){
+            if(calNumOne!=0){
                 printf("%d / %d = %.2f\n", calNumOne, calNumTwo, (calNumOne * 1.0) / calNumTwo);
                 break;
             }
