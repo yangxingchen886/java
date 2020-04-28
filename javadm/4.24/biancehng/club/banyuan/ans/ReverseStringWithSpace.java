@@ -1,6 +1,6 @@
   package club.banyuan.ans;
 
-public class RandomDemo {
+public class ReverseStringWithSpace {
 
   public static int randomInt(int from, int to) {
     return (int) (Math.random() * (to + 1 - from) + from);
