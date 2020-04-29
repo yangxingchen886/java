@@ -11,6 +11,7 @@ public class student {
     public final void setStudymethod(String studymethod) {
         this.studymethod = studymethod;
     }
+
     public final String getStudentName() {
         return studentName;
     }

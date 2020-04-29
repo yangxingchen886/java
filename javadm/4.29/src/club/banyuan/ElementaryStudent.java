@@ -1,10 +1,10 @@
 package club.banyuan;
 
-public class ElementaryStudent extends student{
+public class ElementaryStudent extends student {
 
-    public void EleStuName(String name){
+    public void EleStuName(String name) {
         super.setStudentName(name);
-        System.out.println("小学生："+getStudentName());
+        System.out.println("小学生：" + getStudentName());
     }
 
     String studymethod = "看书";
