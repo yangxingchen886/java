@@ -1,4 +1,4 @@
-public class StaticDemo {
+class StaticDemo {
     int num1 = 6;
     static int num2 = 10;
 

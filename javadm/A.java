@@ -1,18 +1,18 @@
-class A
+class A1
 {
     int i = 10;
 }
  
-class B extends A
+class B1 extends A1
 {
     int i = 20;
 }
  
-public class MainClass
+class MainClass
 {
     public static void main(String[] args)
     {
-        A a = new B();
+        A1 a = new B1();
  
         System.out.println(a.i);
     }

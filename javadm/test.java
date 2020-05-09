@@ -1,21 +1,35 @@
-class A{
-	private static final String ADDRESS="栖霞区下水道...";
-	public static int count = 1;
-	private String password;
-	static{
-		count++;
-	}
-	public A(){
-		count++;
-	}
+interface ABC
+{
+	void methodOne();
+}
+
+interface PQR extends ABC
+{
+	void methodTwo();
+}
+
+abstract class XYZ implements PQR
+{
+	public void methodOne()
 	{
-		count++;
+		methodTwo();
 	}
 }
-class B{
-	public static void main(String[] args) {
-		new A();
-		new A();
-		System.out.println(A.count);
+
+class MNO extends XYZ
+{
+	public void methodTwo()
+	{
+		methodOne();
+	}
+}
+
+class MainClass1
+{
+	public static void main(String[] args)
+	{
+		ABC abc = new MNO();
+
+		abc.methodOne();
 	}
 }
