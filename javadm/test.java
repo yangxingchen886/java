@@ -1,35 +1,21 @@
-interface ABC
-{
-	void methodOne();
+public class OuterClass {
+    private int a;
+
+    private int test() {
+        return a;
+    }
+
+    public class InnercClass {
+        private int a;
+
+        public void method() {
+            System.out.println(this.a);
+            System.out.println(a);
+        }
+    }
 }
 
-interface PQR extends ABC
-{
-	void methodTwo();
-}
-
-abstract class XYZ implements PQR
-{
-	public void methodOne()
-	{
-		methodTwo();
-	}
-}
-
-class MNO extends XYZ
-{
-	public void methodTwo()
-	{
-		methodOne();
-	}
-}
-
-class MainClass1
-{
-	public static void main(String[] args)
-	{
-		ABC abc = new MNO();
-
-		abc.methodOne();
-	}
-}
+//    public static void main(String[] args) {
+//        new OuterClass().new InnercClass().method();
+//
+//    }
