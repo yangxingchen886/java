@@ -19,7 +19,7 @@ public class SightingFiller {
 
         sightings.add(new Sighting(0, "山地大猩猩", 4, 1, 1));
         sightings.add(new Sighting(0, "水牛", 16, 1, 1));
-        sightings.add(new Sighting(1, "河马", 20, 1, 1));
+        sightings.add(new Sighting(1, "河马", 20,   1, 1));
         sightings.add(new Sighting(3, "水牛", 0, 2, 1));
         sightings.add(new Sighting(3, "河马", 30, 2, 1));
 
