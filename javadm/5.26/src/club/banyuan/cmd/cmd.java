@@ -122,7 +122,7 @@ public class cmd {
         System.out.println(new String(bytes));
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      } 
     }
   }
 }
