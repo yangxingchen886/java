@@ -29,7 +29,7 @@ public class TcpClient {
       while ((str = bufferedReader.readLine()) != null) {
         pw.println(str);
       }
-      socket.shutdownOutput();
+//      socket.shutdownOutput();
       bufferedReader.close();
 //      Scanner scanner = new Scanner(System.in);
 //      System.out.println("请输入要加密的字符：");

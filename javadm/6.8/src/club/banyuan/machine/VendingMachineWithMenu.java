@@ -6,6 +6,7 @@ import club.banyuan.menu.Menu;
 import club.banyuan.menu.MenuFlow;
 import club.banyuan.menu.MenuNode;
 import club.banyuan.menu.MenuType;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +22,8 @@ public class VendingMachineWithMenu implements MenuFlow<FlowStatus> {
   public static final String PRODUCT_DEFAULT = " ";
   public static final int FULL_INVENTORY = 10;
 
+  private static final MachineClient machineClient = new MachineClient();
+  private static VendingMachineStorageable machine;
 
   private Menu<FlowStatus> menu;
   private static final int password = 1110;
@@ -119,7 +122,8 @@ public class VendingMachineWithMenu implements MenuFlow<FlowStatus> {
 
   private void buildBottomDisplay(StringBuilder stringBuilder) {
     stringBuilder.append("*---------------------------*").append(System.lineSeparator());
-    stringBuilder.append(String.format("|                    [$%2s]  |", userAmount))
+    stringBuilder.append(String
+        .format("|                    [$%2s]  |", machineClient.getMachineStatus().getUserAmount()))
         .append(System.lineSeparator());
     stringBuilder.append("|                           |").append(System.lineSeparator());
     stringBuilder.append(String.format("|           [=%s=]           |", purchasedProduct))
@@ -135,6 +139,8 @@ public class VendingMachineWithMenu implements MenuFlow<FlowStatus> {
   }
 
   private void buildShelvesDisplay(StringBuilder stringBuilder) {
+    MachineClient machineClient = new MachineClient();
+    Shelf[] shelves = machineClient.getShelves();
 
     String[] codeTemplate = new String[SHELVES_NUM];
     int[] priceTemplate = new int[SHELVES_NUM];
@@ -375,6 +381,7 @@ public class VendingMachineWithMenu implements MenuFlow<FlowStatus> {
       System.out.println("Going Back!");
       return ROOT;
     }
+    Shelf[] shelves = machineClient.getMachineStatus().getShelves();
     Shelf purchase = shelves[index - 1];
     System.out.printf("You have pressed button %s.\n", purchase.getCode());
     if (purchaseProduct(purchase)) {
@@ -387,12 +394,18 @@ public class VendingMachineWithMenu implements MenuFlow<FlowStatus> {
 
   private boolean purchaseProduct(Shelf purchase) {
     if (purchase.getInventory() > 0 && userAmount >= purchase.getPrice()) {
-      userAmount -= purchase.getPrice();
-      salesAmount += purchase.getPrice();
-      purchase.setInventory(purchase.getInventory() - 1);
-      purchasedProduct = purchase.getCode();
-      displayShelves();
-      purchasedProduct = NO_PURCHASE;
+      boolean isSuccess = machineClient.purchase(purchase);
+      if (isSuccess) {
+        purchasedProduct = purchase.getCode();
+        displayShelves();
+        purchasedProduct = NO_PURCHASE;
+      } else {
+        System.err.println("购买失败！！！");
+      }
+      // userAmount -= purchase.getPrice();
+      // salesAmount += purchase.getPrice();
+      // purchase.setInventory(purchase.getInventory() - 1);
+
       return true;
     } else {
       return false;
@@ -432,8 +445,8 @@ public class VendingMachineWithMenu implements MenuFlow<FlowStatus> {
         displayShelves();
         return ROOT;
     }
-    userAmount += amount;
     System.out.printf("You have inserted $%s.\n\n", amount);
+    this.userAmount = machineClient.insertCoin(amount).getUserAmount();
     displayShelves();
     return INSERT_COIN;
   }
@@ -448,6 +461,7 @@ public class VendingMachineWithMenu implements MenuFlow<FlowStatus> {
    * E. Coffee ($7)
    */
   private void displayProductInfo() {
+    Shelf[] shelves = machineClient.getShelves();
     for (Shelf shelf : shelves) {
       System.out.printf("%s. %s ($%s)\n", shelf.getCode(), shelf.getName(), shelf.getPrice());
     }

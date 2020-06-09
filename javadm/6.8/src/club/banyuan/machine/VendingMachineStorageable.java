@@ -33,6 +33,21 @@ public class VendingMachineStorageable implements MenuFlow<FlowStatus>, Serializ
   public static final String PRODUCT_DEFAULT = " ";
   public static final int FULL_INVENTORY = 10;
 
+  public int getUserAmount() {
+    return userAmount;
+  }
+
+  public int getSalesAmount() {
+    return salesAmount;
+  }
+
+  public void setSalesAmount(int salesAmount) {
+    this.salesAmount = salesAmount;
+  }
+
+  public void setUserAmount(int userAmount) {
+    this.userAmount = userAmount;
+  }
 
   private Menu<FlowStatus> menu;
   // private static final int password = 1110;
@@ -513,4 +528,8 @@ public class VendingMachineStorageable implements MenuFlow<FlowStatus>, Serializ
     this.flowStatus = flowStatus;
   }
 
+
+  public Shelf[] getShelves() {
+    return shelves;
+  }
 }
